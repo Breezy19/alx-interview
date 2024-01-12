@@ -1,7 +1,15 @@
 #!/usr/bin/python3
-# lockboxes
 
 def canUnlockAll(boxes):
+    """
+    Check if all boxes can be unlocked.
+
+    Args:
+    boxes (list of lists): Each inner list contains the keys in a box.
+
+    Returns:
+    bool: True if all boxes can be unlocked, False otherwise.
+    """
     n = len(boxes)
     unlocked = [False] * n
     unlocked[0] = True
