@@ -2,16 +2,16 @@
 # lockboxes
 
 def canUnlockAll(boxes):
-    x = len(boxes)
-    item = [False] * x
-    item[0] = True
+    n = len(boxes)
+    unlocked = [False] * n
+    unlocked[0] = True
     stack = [0]
 
     while stack:
-        box = stack.pop()
-        for each in boxes[box]:
-            if each >= 0 and each < x and not item[each]:
-                item[each] = True
-                stack.append(each)
+        current_box = stack.pop()
+        for key in boxes[current_box]:
+            if key < n and not unlocked[key]:
+                unlocked[key] = True
+                stack.append(key)
 
-    return all(item)
+    return all(unlocked)
