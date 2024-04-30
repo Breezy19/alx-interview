@@ -1,40 +1,24 @@
 #!/usr/bin/python3
-"""
-Module for making change using dynamic programming
-"""
+
+""" Contains makeChange function"""
 
 
 def makeChange(coins, total):
     """
-    Determine the fewest number of coins needed to meet a given amount total.
+    Returns: fewest number of coins needed to meet total
+        If total is 0 or less, return 0
+        If total cannot be met by any number of coins you have, return -1
     """
-    if total < 1:
-        return 0
-
-    # Initialize a list to store the minimum number of coins for each amount
-    # The length of dp is total + 1 to include 0 as the base case
-    dp = [float('inf')] * (total + 1)
-
-    # Base case: 0 coins needed to make 0 total
-    dp[0] = 0
-
-    # Iterate through all possible amounts from 1 to total
-    for amount in range(1, total + 1):
-        # Iterate through all available coin values
-        for coin in coins:
-            # If the coin value is less than or equal to the current amount
-            if coin <= amount:
-                # Update the minimum number of coins needed
-                dp[amount] = min(dp[amount], dp[amount - coin] + 1)
-
-    # If dp[total] is still float('inf'), it means the total cannot be met
-    if dp[total] == float('inf'):
+    if not coins or coins is None:
         return -1
-
-    return dp[total]
-
-
-if __name__ == "__main__":
-    # Example usage
-    print(makeChange([1, 2, 25], 37))
-    print(makeChange([1256, 54, 48, 16, 102], 1453))
+    if total <= 0:
+        return 0
+    change = 0
+    coins = sorted(coins)[::-1]
+    for coin in coins:
+        while coin <= total:
+            total -= coin
+            change += 1
+        if (total == 0):
+            return change
+    return -1
